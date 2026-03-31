@@ -4,17 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Class Quest · 课堂冒险</title>
-  <!-- Fonts: 使用系统字体，无需外部加载 -->
-  <style>
-    /* 系统字体回退链 */
-    @font-face {
-      font-family: 'Cinzel-Fallback';
-      src: local('Cinzel'), local('Georgia');
-    }
-  </style>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
+  <!-- Loading Screen -->
+  <div id="loadingScreen">
+    <div class="loader-ring"></div>
+    <div class="loader-text">CLASS QUEST</div>
+  </div>
+
   <!-- Particles BG -->
   <canvas id="particles"></canvas>
 
@@ -25,116 +24,53 @@
       <span class="brand-text">Class Quest</span>
     </div>
     <div class="nav-links">
-      <a href="#" class="nav-link active" data-view="dashboard">
-        <span class="nav-icon">🏠</span><span class="nav-label">大厅</span>
-      </a>
-      <a href="#" class="nav-link" data-view="students">
-        <span class="nav-icon">👥</span><span class="nav-label">英雄</span>
-      </a>
-      <a href="#" class="nav-link" data-view="cards">
-        <span class="nav-icon">🃏</span><span class="nav-label">卡牌</span>
-      </a>
-      <a href="#" class="nav-link" data-view="gacha">
-        <span class="nav-icon">✨</span><span class="nav-label">召唤</span>
-      </a>
-      <a href="#" class="nav-link" data-view="battle">
-        <span class="nav-icon">⚔️</span><span class="nav-label">对战</span>
-      </a>
-      <a href="#" class="nav-link" data-view="leaderboard">
-        <span class="nav-icon">🏆</span><span class="nav-label">排行</span>
-      </a>
+      <a href="#" class="nav-link active" data-view="dashboard"><span class="nav-icon">🏠</span><span class="nav-label">大厅</span></a>
+      <a href="#" class="nav-link" data-view="students"><span class="nav-icon">👥</span><span class="nav-label">英雄</span></a>
+      <a href="#" class="nav-link" data-view="cards"><span class="nav-icon">🃏</span><span class="nav-label">卡牌</span></a>
+      <a href="#" class="nav-link" data-view="gacha"><span class="nav-icon">✨</span><span class="nav-label">召唤</span></a>
+      <a href="#" class="nav-link" data-view="battle"><span class="nav-icon">⚔️</span><span class="nav-label">对战</span></a>
+      <a href="#" class="nav-link" data-view="leaderboard"><span class="nav-icon">🏆</span><span class="nav-label">排行</span></a>
     </div>
     <div class="nav-stats">
-      <div class="stat-chip gold">
-        <span class="stat-icon">💰</span>
-        <span id="totalGold">0</span>
-      </div>
-      <div class="stat-chip gems">
-        <span class="stat-icon">💎</span>
-        <span id="totalGems">0</span>
-      </div>
+      <div class="stat-chip gold"><span class="stat-icon">💰</span><span id="totalGold">0</span></div>
+      <div class="stat-chip gems"><span class="stat-icon">💎</span><span id="totalGems">0</span></div>
     </div>
   </nav>
 
   <!-- ========== DASHBOARD ========== -->
   <section id="view-dashboard" class="view active">
-    <div class="dashboard-header">
+    <div class="dashboard-header reveal">
       <h1 class="glitch-title" data-text="课堂冒险">课堂冒险</h1>
       <p class="subtitle">Class Quest · 班级优化大师 × 卡牌冒险</p>
     </div>
-
     <div class="dashboard-grid">
-      <!-- Today's Quest -->
-      <div class="dash-card quest-card">
-        <div class="card-header">
-          <h3>📜 今日任务</h3>
-          <span class="badge pulse">进行中</span>
-        </div>
+      <div class="dash-card quest-card reveal" style="--delay:.1s">
+        <div class="card-header"><h3>📜 今日任务</h3><span class="badge pulse">进行中</span></div>
         <div id="dailyQuests" class="quest-list"></div>
       </div>
-
-      <!-- Class Stats -->
-      <div class="dash-card stats-card">
+      <div class="dash-card stats-card reveal" style="--delay:.2s">
         <div class="card-header"><h3>📊 班级数据</h3></div>
         <div class="stats-grid">
-          <div class="stat-item">
-            <div class="stat-value" id="statStudents">0</div>
-            <div class="stat-label">英雄总数</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-value" id="statCards">0</div>
-            <div class="stat-label">卡牌总数</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-value" id="statBattles">0</div>
-            <div class="stat-label">对战场次</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-value" id="statAchievements">0</div>
-            <div class="stat-label">成就解锁</div>
-          </div>
+          <div class="stat-item"><div class="stat-value" id="statStudents">0</div><div class="stat-label">英雄总数</div></div>
+          <div class="stat-item"><div class="stat-value" id="statCards">0</div><div class="stat-label">卡牌总数</div></div>
+          <div class="stat-item"><div class="stat-value" id="statBattles">0</div><div class="stat-label">对战场次</div></div>
+          <div class="stat-item"><div class="stat-value" id="statAchievements">0</div><div class="stat-label">成就解锁</div></div>
         </div>
-        <!-- XP Chart -->
-        <div class="xp-chart">
-          <h4>📈 班级经验值趋势</h4>
-          <canvas id="xpChart" width="400" height="180"></canvas>
-        </div>
+        <div class="xp-chart"><h4>📈 班级经验值趋势</h4><canvas id="xpChart" width="400" height="180"></canvas></div>
       </div>
-
-      <!-- Recent Activity -->
-      <div class="dash-card activity-card">
+      <div class="dash-card activity-card reveal" style="--delay:.3s">
         <div class="card-header"><h3>⚡ 最近动态</h3></div>
         <div id="activityFeed" class="activity-feed"></div>
       </div>
-
-      <!-- Quick Actions -->
-      <div class="dash-card actions-card">
+      <div class="dash-card actions-card reveal" style="--delay:.4s">
         <div class="card-header"><h3>🎯 快捷操作</h3></div>
         <div class="quick-actions">
-          <button class="action-btn" onclick="quickAddPoints()">
-            <span class="action-icon">➕</span>
-            <span>加分</span>
-          </button>
-          <button class="action-btn" onclick="quickSubtractPoints()">
-            <span class="action-icon">➖</span>
-            <span>扣分</span>
-          </button>
-          <button class="action-btn" onclick="quickRandom()">
-            <span class="action-icon">🎲</span>
-            <span>随机</span>
-          </button>
-          <button class="action-btn" onclick="quickGroup()">
-            <span class="action-icon">👥</span>
-            <span>分组</span>
-          </button>
-          <button class="action-btn gold" onclick="switchView('gacha')">
-            <span class="action-icon">✨</span>
-            <span>抽卡</span>
-          </button>
-          <button class="action-btn danger" onclick="switchView('battle')">
-            <span class="action-icon">⚔️</span>
-            <span>对战</span>
-          </button>
+          <button class="action-btn ripple" onclick="quickAddPoints()"><span class="action-icon">➕</span><span>加分</span></button>
+          <button class="action-btn ripple" onclick="quickSubtractPoints()"><span class="action-icon">➖</span><span>扣分</span></button>
+          <button class="action-btn ripple" onclick="quickRandom()"><span class="action-icon">🎲</span><span>随机</span></button>
+          <button class="action-btn ripple" onclick="quickGroup()"><span class="action-icon">👥</span><span>分组</span></button>
+          <button class="action-btn gold ripple" onclick="switchView('gacha')"><span class="action-icon">✨</span><span>抽卡</span></button>
+          <button class="action-btn danger ripple" onclick="switchView('battle')"><span class="action-icon">⚔️</span><span>对战</span></button>
         </div>
       </div>
     </div>
@@ -142,29 +78,23 @@
 
   <!-- ========== STUDENTS ========== -->
   <section id="view-students" class="view">
-    <div class="view-header">
+    <div class="view-header reveal">
       <h2>👥 英雄殿堂</h2>
       <div class="header-actions">
-        <button class="btn-primary" onclick="openAddStudent()">➕ 招募英雄</button>
-        <button class="btn-secondary" onclick="openBatchAdd()">📋 批量导入</button>
+        <button class="btn-primary ripple" onclick="openAddStudent()">➕ 招募英雄</button>
+        <button class="btn-secondary ripple" onclick="openBatchAdd()">📋 批量导入</button>
       </div>
     </div>
-
-    <!-- Class Selector -->
     <div class="class-selector">
-      <div class="class-tab active" data-class="default">
-        <span>🏠 默认班级</span>
-      </div>
+      <div class="class-tab active" data-class="default"><span>🏠 默认班级</span></div>
       <button class="class-tab add-class" onclick="addClass()">+</button>
     </div>
-
-    <!-- Student Grid -->
     <div id="studentGrid" class="student-grid"></div>
   </section>
 
   <!-- ========== CARDS ========== -->
   <section id="view-cards" class="view">
-    <div class="view-header">
+    <div class="view-header reveal">
       <h2>🃏 卡牌图鉴</h2>
       <div class="header-actions">
         <div class="filter-group">
@@ -192,109 +122,68 @@
       <h2 class="gacha-title">命运召唤</h2>
       <p class="gacha-sub">消耗 💎 召唤强大的卡牌</p>
       <div class="gacha-actions">
-        <button class="gacha-btn single" onclick="gachaPull(1)">
-          <span class="btn-text">单次召唤</span>
-          <span class="btn-cost">💎 10</span>
-        </button>
-        <button class="gacha-btn multi" onclick="gachaPull(10)">
-          <span class="btn-text">十连召唤</span>
-          <span class="btn-cost">💎 90</span>
-        </button>
+        <button class="gacha-btn single ripple" onclick="gachaPull(1)"><span class="btn-text">单次召唤</span><span class="btn-cost">💎 10</span></button>
+        <button class="gacha-btn multi ripple" onclick="gachaPull(10)"><span class="btn-text">十连召唤</span><span class="btn-cost">💎 90</span></button>
       </div>
       <div class="gacha-pity">
-        <div class="pity-bar">
-          <div class="pity-fill" id="pityFill"></div>
-        </div>
+        <div class="pity-bar"><div class="pity-fill" id="pityFill"></div></div>
         <span class="pity-text">保底计数: <span id="pityCount">0</span>/90</span>
       </div>
     </div>
-    <!-- Gacha Result Overlay -->
     <div id="gachaOverlay" class="gacha-overlay hidden">
+      <canvas id="confettiCanvas" style="position:absolute;inset:0;pointer-events:none;z-index:1;"></canvas>
       <div class="gacha-results" id="gachaResults"></div>
-      <button class="btn-close-gacha" onclick="closeGachaResults()">确认</button>
+      <button class="btn-close-gacha ripple" onclick="closeGachaResults()">确认</button>
     </div>
   </section>
 
   <!-- ========== BATTLE ========== -->
   <section id="view-battle" class="view">
-    <div class="view-header">
-      <h2>⚔️ 竞技对战</h2>
-    </div>
-
+    <div class="view-header reveal"><h2>⚔️ 竞技对战</h2></div>
     <div id="battleSetup" class="battle-setup">
       <h3>选择对战模式</h3>
       <div class="battle-modes">
-        <div class="mode-card" onclick="startBattleMode('1v1')">
-          <div class="mode-icon">🤺</div>
-          <h4>1v1 决斗</h4>
-          <p>两位英雄的对决</p>
-        </div>
-        <div class="mode-card" onclick="startBattleMode('group')">
-          <div class="mode-icon">⚔️</div>
-          <h4>小组对抗</h4>
-          <p>团队荣誉之战</p>
-        </div>
-        <div class="mode-card" onclick="startBattleMode('boss')">
-          <div class="mode-icon">🐉</div>
-          <h4>BOSS 挑战</h4>
-          <p>全班协力击退 Boss</p>
-        </div>
+        <div class="mode-card ripple" onclick="startBattleMode('1v1')"><div class="mode-icon">🤺</div><h4>1v1 决斗</h4><p>两位英雄的对决</p></div>
+        <div class="mode-card ripple" onclick="startBattleMode('group')"><div class="mode-icon">⚔️</div><h4>小组对抗</h4><p>团队荣誉之战</p></div>
+        <div class="mode-card ripple" onclick="startBattleMode('boss')"><div class="mode-icon">🐉</div><h4>BOSS 挑战</h4><p>全班协力击退 Boss</p></div>
       </div>
     </div>
-
     <div id="battleArena" class="battle-arena hidden">
       <div class="arena-bg"></div>
       <div class="battle-field">
-        <!-- Player Side -->
         <div class="battle-side player-side">
           <div class="combatant-info">
             <div class="combatant-avatar" id="playerAvatar"></div>
             <div class="combatant-name" id="playerName">玩家</div>
-            <div class="hp-bar">
-              <div class="hp-fill" id="playerHP"></div>
-            </div>
-            <div class="combatant-stats">
-              <span>ATK: <b id="playerATK">0</b></span>
-              <span>DEF: <b id="playerDEF">0</b></span>
-            </div>
+            <div class="hp-bar"><div class="hp-fill" id="playerHP"></div></div>
+            <div class="combatant-stats"><span>ATK: <b id="playerATK">0</b></span><span>DEF: <b id="playerDEF">0</b></span></div>
           </div>
           <div class="hand-area" id="playerHand"></div>
         </div>
-
-        <!-- Center -->
         <div class="battle-center">
           <div class="turn-indicator" id="turnIndicator">准备战斗</div>
           <div class="battle-log" id="battleLog"></div>
         </div>
-
-        <!-- Enemy Side -->
         <div class="battle-side enemy-side">
           <div class="combatant-info">
             <div class="combatant-avatar" id="enemyAvatar"></div>
             <div class="combatant-name" id="enemyName">对手</div>
-            <div class="hp-bar enemy">
-              <div class="hp-fill" id="enemyHP"></div>
-            </div>
-            <div class="combatant-stats">
-              <span>ATK: <b id="enemyATK">0</b></span>
-              <span>DEF: <b id="enemyDEF">0</b></span>
-            </div>
+            <div class="hp-bar enemy"><div class="hp-fill" id="enemyHP"></div></div>
+            <div class="combatant-stats"><span>ATK: <b id="enemyATK">0</b></span><span>DEF: <b id="enemyDEF">0</b></span></div>
           </div>
           <div class="hand-area" id="enemyHand"></div>
         </div>
       </div>
       <div class="battle-controls">
-        <button class="btn-battle" id="btnEndTurn" onclick="endTurn()">结束回合 ⏭️</button>
-        <button class="btn-battle secondary" onclick="forfeitBattle()">投降 🏳️</button>
+        <button class="btn-battle ripple" id="btnEndTurn" onclick="endTurn()">结束回合 ⏭️</button>
+        <button class="btn-battle secondary ripple" onclick="forfeitBattle()">投降 🏳️</button>
       </div>
     </div>
   </section>
 
   <!-- ========== LEADERBOARD ========== -->
   <section id="view-leaderboard" class="view">
-    <div class="view-header">
-      <h2>🏆 荣耀殿堂</h2>
-    </div>
+    <div class="view-header reveal"><h2>🏆 荣耀殿堂</h2></div>
     <div class="leaderboard-tabs">
       <button class="lb-tab active" data-lb="points">💰 积分榜</button>
       <button class="lb-tab" data-lb="cards">🃏 卡牌榜</button>
@@ -305,68 +194,32 @@
   </section>
 
   <!-- ========== MODALS ========== -->
-  <!-- Add Student Modal -->
   <div id="modalAddStudent" class="modal hidden">
     <div class="modal-content">
-      <div class="modal-header">
-        <h3>➕ 招募新英雄</h3>
-        <button class="modal-close" onclick="closeModal('modalAddStudent')">✕</button>
-      </div>
+      <div class="modal-header"><h3>➕ 招募新英雄</h3><button class="modal-close" onclick="closeModal('modalAddStudent')">✕</button></div>
       <form id="addStudentForm" onsubmit="addStudent(event)">
-        <div class="form-group">
-          <label>英雄名称</label>
-          <input type="text" id="studentName" placeholder="输入学生姓名" required>
-        </div>
-        <div class="form-group">
-          <label>选择职业</label>
-          <div class="class-picker" id="classPicker">
-            <div class="class-option selected" data-class="warrior">
-              <span class="class-icon">⚔️</span>
-              <span>战士</span>
-            </div>
-            <div class="class-option" data-class="mage">
-              <span class="class-icon">🔮</span>
-              <span>法师</span>
-            </div>
-            <div class="class-option" data-class="ranger">
-              <span class="class-icon">🏹</span>
-              <span>游侠</span>
-            </div>
-            <div class="class-option" data-class="healer">
-              <span class="class-icon">💚</span>
-              <span>牧师</span>
-            </div>
-            <div class="class-option" data-class="assassin">
-              <span class="class-icon">🗡️</span>
-              <span>刺客</span>
-            </div>
-            <div class="class-option" data-class="tank">
-              <span class="class-icon">🛡️</span>
-              <span>坦克</span>
-            </div>
+        <div class="form-group"><label>英雄名称</label><input type="text" id="studentName" placeholder="输入学生姓名" required></div>
+        <div class="form-group"><label>选择职业</label>
+          <div class="class-picker">
+            <div class="class-option selected" data-class="warrior"><span class="class-icon">⚔️</span><span>战士</span></div>
+            <div class="class-option" data-class="mage"><span class="class-icon">🔮</span><span>法师</span></div>
+            <div class="class-option" data-class="ranger"><span class="class-icon">🏹</span><span>游侠</span></div>
+            <div class="class-option" data-class="healer"><span class="class-icon">💚</span><span>牧师</span></div>
+            <div class="class-option" data-class="assassin"><span class="class-icon">🗡️</span><span>刺客</span></div>
+            <div class="class-option" data-class="tank"><span class="class-icon">🛡️</span><span>坦克</span></div>
           </div>
         </div>
-        <div class="form-group">
-          <label>头像颜色</label>
-          <div class="color-picker">
-            <input type="color" id="studentColor" value="#6c5ce7">
-          </div>
-        </div>
-        <button type="submit" class="btn-primary full">招募英雄</button>
+        <div class="form-group"><label>头像颜色</label><div class="color-picker"><input type="color" id="studentColor" value="#6c5ce7"></div></div>
+        <button type="submit" class="btn-primary full ripple">招募英雄</button>
       </form>
     </div>
   </div>
 
-  <!-- Points Modal -->
   <div id="modalPoints" class="modal hidden">
     <div class="modal-content">
-      <div class="modal-header">
-        <h3 id="pointsModalTitle">➕ 加分</h3>
-        <button class="modal-close" onclick="closeModal('modalPoints')">✕</button>
-      </div>
+      <div class="modal-header"><h3 id="pointsModalTitle">➕ 加分</h3><button class="modal-close" onclick="closeModal('modalPoints')">✕</button></div>
       <div id="pointsStudentSelect" class="student-select-grid"></div>
-      <div class="form-group">
-        <label>分值</label>
+      <div class="form-group"><label>分值</label>
         <div class="point-presets">
           <button type="button" class="preset-btn" data-points="1">+1</button>
           <button type="button" class="preset-btn" data-points="2">+2</button>
@@ -375,8 +228,7 @@
           <input type="number" id="customPoints" placeholder="自定义" min="1" max="100">
         </div>
       </div>
-      <div class="form-group">
-        <label>原因</label>
+      <div class="form-group"><label>原因</label>
         <select id="pointsReason">
           <option value="积极发言">🎤 积极发言</option>
           <option value="作业优秀">📝 作业优秀</option>
@@ -387,56 +239,62 @@
           <option value="其他">📌 其他</option>
         </select>
       </div>
-      <button class="btn-primary full" onclick="applyPoints()">确认</button>
+      <button class="btn-primary full ripple" onclick="applyPoints()">确认</button>
     </div>
   </div>
 
-  <!-- Student Detail Modal -->
   <div id="modalStudentDetail" class="modal hidden">
     <div class="modal-content wide">
-      <div class="modal-header">
-        <h3 id="detailStudentName">英雄详情</h3>
-        <button class="modal-close" onclick="closeModal('modalStudentDetail')">✕</button>
-      </div>
+      <div class="modal-header"><h3 id="detailStudentName">英雄详情</h3><button class="modal-close" onclick="closeModal('modalStudentDetail')">✕</button></div>
       <div class="student-detail">
         <div class="detail-hero">
           <div class="hero-card-large" id="detailHeroCard"></div>
+          <div class="detail-point-controls">
+            <h4>⚡ 快速加减分</h4>
+            <div class="quick-point-row">
+              <button class="qp-btn add ripple" onclick="quickPointSingle(1)">+1</button>
+              <button class="qp-btn add ripple" onclick="quickPointSingle(2)">+2</button>
+              <button class="qp-btn add ripple" onclick="quickPointSingle(5)">+5</button>
+              <button class="qp-btn add ripple" onclick="quickPointSingle(10)">+10</button>
+            </div>
+            <div class="quick-point-row">
+              <button class="qp-btn sub ripple" onclick="quickPointSingle(-1)">-1</button>
+              <button class="qp-btn sub ripple" onclick="quickPointSingle(-2)">-2</button>
+              <button class="qp-btn sub ripple" onclick="quickPointSingle(-5)">-5</button>
+              <button class="qp-btn sub ripple" onclick="quickPointSingle(-10)">-10</button>
+            </div>
+            <div class="quick-point-row custom">
+              <input type="number" id="singleCustomPts" placeholder="自定义" min="-100" max="100">
+              <button class="btn-primary ripple" onclick="applySingleCustom()">确认</button>
+            </div>
+          </div>
         </div>
         <div class="detail-info">
           <div class="detail-stats" id="detailStats"></div>
-          <div class="detail-cards">
-            <h4>🃏 持有卡牌</h4>
-            <div id="detailCardList" class="mini-card-list"></div>
-          </div>
-          <div class="detail-history">
-            <h4>📜 行为记录</h4>
-            <div id="detailHistory" class="history-list"></div>
-          </div>
-          <div class="detail-achievements">
-            <h4>🎖️ 成就</h4>
-            <div id="detailAchievements" class="achievement-grid"></div>
-          </div>
+          <div class="detail-cards"><h4>🃏 持有卡牌</h4><div id="detailCardList" class="mini-card-list"></div></div>
+          <div class="detail-history"><h4>📜 行为记录</h4><div id="detailHistory" class="history-list"></div></div>
+          <div class="detail-achievements"><h4>🎖️ 成就</h4><div id="detailAchievements" class="achievement-grid"></div></div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Batch Import Modal -->
   <div id="modalBatch" class="modal hidden">
     <div class="modal-content">
-      <div class="modal-header">
-        <h3>📋 批量导入</h3>
-        <button class="modal-close" onclick="closeModal('modalBatch')">✕</button>
-      </div>
+      <div class="modal-header"><h3>📋 批量导入</h3><button class="modal-close" onclick="closeModal('modalBatch')">✕</button></div>
       <div class="form-group">
         <label>每行一个姓名（可选职业，逗号分隔）</label>
         <textarea id="batchNames" rows="10" placeholder="张三,战士&#10;李四,法师&#10;王五&#10;赵六,游侠"></textarea>
       </div>
-      <button class="btn-primary full" onclick="batchImport()">批量招募</button>
+      <div id="batchPreview" class="batch-preview" style="display:none;">
+        <h4>📋 预览 (<span id="batchCount">0</span> 名新英雄)</h4>
+        <div id="batchPreviewList" class="batch-preview-list"></div>
+      </div>
+      <button class="btn-primary full ripple" onclick="batchPreviewShow()">预览</button>
+      <button class="btn-primary full ripple" id="batchImportBtn" onclick="batchImport()" style="display:none;margin-top:8px;background:linear-gradient(135deg,#10b981,#059669);">确认招募</button>
     </div>
   </div>
 
-  <!-- Card Detail Modal -->
   <div id="modalCardDetail" class="modal hidden">
     <div class="modal-content card-detail-content">
       <button class="modal-close" onclick="closeModal('modalCardDetail')">✕</button>
@@ -444,14 +302,22 @@
     </div>
   </div>
 
-  <!-- Toast -->
   <div id="toastContainer" class="toast-container"></div>
 
-  <!-- Random Spinner -->
   <div id="randomSpinner" class="random-spinner hidden">
     <div class="spinner-wheel" id="spinnerWheel"></div>
     <div class="spinner-pointer">▼</div>
     <div class="spinner-result" id="spinnerResult"></div>
+  </div>
+
+  <!-- Mobile Bottom Nav -->
+  <div class="mobile-nav">
+    <a href="#" class="mob-link active" data-view="dashboard"><span>🏠</span><span>大厅</span></a>
+    <a href="#" class="mob-link" data-view="students"><span>👥</span><span>英雄</span></a>
+    <a href="#" class="mob-link" data-view="cards"><span>🃏</span><span>卡牌</span></a>
+    <a href="#" class="mob-link" data-view="gacha"><span>✨</span><span>召唤</span></a>
+    <a href="#" class="mob-link" data-view="battle"><span>⚔️</span><span>对战</span></a>
+    <a href="#" class="mob-link" data-view="leaderboard"><span>🏆</span><span>排行</span></a>
   </div>
 
   <script src="js/cards-data.js"></script>
