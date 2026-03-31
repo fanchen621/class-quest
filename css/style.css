@@ -44,9 +44,9 @@
   --radius-lg: 20px;
   
   /* Fonts */
-  --font-display: 'Cinzel', 'Noto Sans SC', serif;
-  --font-body: 'Noto Sans SC', system-ui, sans-serif;
-  --font-mono: 'Orbitron', monospace;
+  --font-display: 'Cinzel', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', serif;
+  --font-body: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+  --font-mono: 'Orbitron', 'Courier New', monospace;
 }
 
 /* ========== RESET ========== */
@@ -65,6 +65,7 @@ body {
   color: var(--text-primary);
   min-height: 100vh;
   overflow-x: hidden;
+  overflow-y: auto;
 }
 
 /* ========== PARTICLES ========== */
@@ -85,10 +86,13 @@ body {
   backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(139, 92, 246, 0.15);
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   padding: 0 24px;
   z-index: 100;
+  gap: 16px;
+  overflow: visible;
 }
 
 .nav-brand {
@@ -116,13 +120,16 @@ body {
 .nav-links {
   display: flex;
   gap: 4px;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  align-items: center;
 }
 
 .nav-link {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 16px;
+  padding: 8px 14px;
   border-radius: var(--radius);
   text-decoration: none;
   color: var(--text-secondary);
@@ -130,6 +137,8 @@ body {
   font-weight: 500;
   transition: all 0.3s;
   position: relative;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .nav-link:hover {
@@ -192,6 +201,8 @@ body {
   position: relative;
   z-index: 1;
   animation: fadeInUp 0.4s ease;
+  width: 100%;
+  min-height: 100vh;
 }
 
 .view.active { display: block; }
@@ -1913,6 +1924,12 @@ body {
   .student-detail { grid-template-columns: 1fr; }
   .battle-field { grid-template-columns: 1fr; }
   .battle-center { order: -1; }
+}
+
+@media (max-width: 900px) {
+  .nav-label { display: none; }
+  .nav-link { padding: 8px 10px; }
+  .glitch-title { font-size: 40px; }
 }
 
 @media (max-width: 768px) {
