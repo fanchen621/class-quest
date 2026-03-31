@@ -43,10 +43,10 @@
   --radius: 12px;
   --radius-lg: 20px;
   
-  /* Fonts */
-  --font-display: 'Cinzel', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', serif;
-  --font-body: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
-  --font-mono: 'Orbitron', 'Courier New', monospace;
+  /* Fonts - 纯系统字体，零外部依赖 */
+  --font-display: Georgia, 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', serif;
+  --font-body: -apple-system, BlinkMacSystemFont, 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Courier New', Consolas, 'Liberation Mono', monospace;
 }
 
 /* ========== RESET ========== */
