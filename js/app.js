@@ -136,7 +136,7 @@ function drawXPChart() {
   const data = state.xpHistory.slice(-14);
   if (data.length < 2) {
     ctx.fillStyle = '#6060a0';
-    ctx.font = '14px "Noto Sans SC"';
+    ctx.font = "14px -apple-system, sans-serif";
     ctx.textAlign = 'center';
     ctx.fillText('数据积累中...', w / 2, h / 2);
     return;
@@ -204,7 +204,7 @@ function drawXPChart() {
 
   // Labels
   ctx.fillStyle = '#6060a0';
-  ctx.font = '10px "Orbitron"';
+  ctx.font = '10px -apple-system, sans-serif';
   ctx.textAlign = 'center';
   ctx.fillText('近14天', w / 2, h - 5);
 }
